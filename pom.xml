@@ -104,6 +104,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				 <configuration>
+                <requiresUnpack>
+                    <dependency>
+                        <groupId>com.walmart.hackathon</groupId>
+                        <artifactId>resources</artifactId>
+                    </dependency>
+                </requiresUnpack>
+            </configuration>
 			</plugin>
 		</plugins>
 	</build>
