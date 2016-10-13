@@ -22,10 +22,10 @@ public class SqlInitialization{
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.sqlite.JDBC");
-        dataSource.setUrl("jdbc:sqlite:product_db.sqlite");
-        dataSource.setUsername("");
-        dataSource.setPassword("");
+        dataSource.setDriverClassName("org.postgresql.Driver");
+        dataSource.setUrl("postgres://psjfszkjnbhpiv:AgfkslcEamdxpREzfO-Zto5esP@ec2-54-243-200-159.compute-1.amazonaws.com:5432/dakf58su6kvi5p");
+        dataSource.setUsername("psjfszkjnbhpiv");
+        dataSource.setPassword("AgfkslcEamdxpREzfO-Zto5esP");
        
         return dataSource;
     }
@@ -49,11 +49,11 @@ public class SqlInitialization{
     {
         Properties hibernateProperties = new Properties();
 
-        hibernateProperties.setProperty("hibernate.dialect", "com.enigmabridge.hibernate.dialect.SQLiteDialect");
+        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
         hibernateProperties.setProperty("hibernate.show_sql", "true");
         hibernateProperties.setProperty("hibernate.use_sql_comments", "false");
         hibernateProperties.setProperty("hibernate.format_sql", "false");
-        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create");
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "update");
 
         hibernateProperties.setProperty("hibernate.generate_statistics", "false");
 
