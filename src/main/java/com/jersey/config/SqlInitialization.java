@@ -23,7 +23,7 @@ public class SqlInitialization{
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("postgres://psjfszkjnbhpiv:AgfkslcEamdxpREzfO-Zto5esP@ec2-54-243-200-159.compute-1.amazonaws.com:5432/dakf58su6kvi5p");
+        dataSource.setUrl("jdbc:postgresql://ec2-54-243-200-159.compute-1.amazonaws.com:5432/dakf58su6kvi5p?sslmode=disable");
         dataSource.setUsername("psjfszkjnbhpiv");
         dataSource.setPassword("AgfkslcEamdxpREzfO-Zto5esP");
        
