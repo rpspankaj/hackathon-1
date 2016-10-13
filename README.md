@@ -1,4 +1,4 @@
-<h2>RESTfull web services with Spring Boot, Jersey and hibernate using sqllite database (Java configuration).</h2>
+<h2>RESTfull web services with Spring Boot, Jersey and hibernate using postgress database (Java configuration). The Application is hosted in Heroku https://hack-rest.herokuapp.com </h2>
 
 <b>Technologies:</b>
 <ul>
@@ -7,7 +7,8 @@
 <li>Spring Boot 1.1.9.RELEASE</li>
 <li>Jersey 2.7</li>
 <li>Hibernate 4</li>
-<li>sqllite</li>
+<li>postgress DB</li>
+<li>Heroku for hosting</li>
 <ul>
 
 <br/>
@@ -29,4 +30,6 @@ Run with following maven goals to build & run the server  :
 clean package && spring-boot:run
 
 </pre>
-<p>Go to: localhost:8080/products</p>
+<p>Go to: https://hack-rest.herokuapp.com/users to get list of users </p>
+
+
