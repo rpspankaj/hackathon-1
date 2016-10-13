@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class User {
+public class HackUser {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	BigInteger userId;

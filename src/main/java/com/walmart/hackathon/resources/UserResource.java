@@ -12,7 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.walmart.hackathon.model.User;
+import com.walmart.hackathon.model.HackUser;
 import com.walmart.hackathon.persistence.UserDao;
 
 @Path("/users")
@@ -29,8 +29,8 @@ public class UserResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public List<User> getUsers(){
-		List<User> users =userDao.findAll();
+	public List<HackUser> getUsers(){
+		List<HackUser> users =userDao.findAll();
 		return users;
 	}
 	
@@ -42,7 +42,7 @@ public class UserResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-    public User save(@Valid User user) {
+    public HackUser save(@Valid HackUser user) {
         return userDao.save(user);
     }
 }
