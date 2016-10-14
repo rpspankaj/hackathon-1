@@ -4,8 +4,8 @@ import java.math.BigInteger;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.walmart.hackathon.model.UserGroup;
+import com.walmart.hackathon.model.Item;
 
-public interface GroupDao extends JpaRepository<UserGroup,BigInteger>{
+public interface ItemDao extends JpaRepository<Item,BigInteger>{
 
 }

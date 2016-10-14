@@ -1,5 +1,6 @@
 package com.walmart.hackathon.resources;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,6 +9,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -36,6 +38,15 @@ public class GroupResource {
 		return groups;
 	}
 	
+	@GET
+	@Path("{groupId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<GroupUserMapping> getGroup(@PathParam("groupId")  BigInteger groupId){
+		List<GroupUserMapping> group= guMappingDao.getGroup(groupId);
+		return group;
+	}
+	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -48,5 +59,17 @@ public class GroupResource {
 		return gp;
         
     }
+	
+	@POST
+	@Path("{groupId}/{userId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public GroupUserMapping addUserToGroup(@PathParam("groupId") BigInteger groupId, @PathParam("userId") BigInteger userId){
+		GroupUserMapping gum =new GroupUserMapping();
+		gum.setGroupId(groupId);
+		gum.setUserId(userId);
+		guMappingDao.save(gum);
+		return gum;
+	}
 	
 }

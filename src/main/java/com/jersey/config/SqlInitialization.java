@@ -4,8 +4,10 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.SpringSessionContext;
@@ -18,15 +20,27 @@ import org.springframework.transaction.support.TransactionTemplate;
 @Configuration
 @EnableJpaRepositories(basePackages = "com.walmart.hackathon.persistence")
 public class SqlInitialization{
+	@Autowired
+	 private Environment env;
+	 
 
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://ec2-54-243-200-159.compute-1.amazonaws.com:5432/dakf58su6kvi5p?sslmode=require");
-        dataSource.setUsername("psjfszkjnbhpiv");
-        dataSource.setPassword("AgfkslcEamdxpREzfO-Zto5esP");
-       
+        String dbType= env.getProperty("db.type");
+		if (dbType.equals("postgres")) {
+			dataSource.setDriverClassName(env.getProperty("db.postgres.driver"));
+			dataSource.setUrl(env.getProperty("db.postgres.url"));
+			dataSource.setUsername(env.getProperty("db.postgres.username"));
+			dataSource.setPassword(env.getProperty("db.postgres.password"));
+		}
+		else{
+			dataSource.setDriverClassName(env.getProperty("db.sqllite.driver"));
+			dataSource.setUrl(env.getProperty("db.sqllite.url"));
+			dataSource.setUsername(env.getProperty("db.sqllite.username"));
+			dataSource.setPassword(env.getProperty("db.sqllite.password"));
+			
+		}
         return dataSource;
     }
 
@@ -48,12 +62,17 @@ public class SqlInitialization{
     protected Properties buildHibernateProperties()
     {
         Properties hibernateProperties = new Properties();
-
-        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+        String dbType= env.getProperty("db.type");
+		if (dbType.equals("postgres")) {
+			hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.postgres.dialect"));
+		}
+		else{
+			hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.sqllite.dialect"));
+		}
         hibernateProperties.setProperty("hibernate.show_sql", "true");
         hibernateProperties.setProperty("hibernate.use_sql_comments", "false");
         hibernateProperties.setProperty("hibernate.format_sql", "false");
-        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "update");
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
 
         hibernateProperties.setProperty("hibernate.generate_statistics", "false");
 

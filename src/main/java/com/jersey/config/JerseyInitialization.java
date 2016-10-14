@@ -4,7 +4,9 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import com.walmart.hackathon.resources.BucketListResource;
 import com.walmart.hackathon.resources.GroupResource;
+import com.walmart.hackathon.resources.ItemResource;
 import com.walmart.hackathon.resources.UserResource;
 
 public class JerseyInitialization extends ResourceConfig {
@@ -19,5 +21,7 @@ public class JerseyInitialization extends ResourceConfig {
        // this.packages(true, "com.walmart.hackathon.resources");
         this.register(UserResource.class);
         this.register(GroupResource.class);
+        this.register(BucketListResource.class);
+        this.register(ItemResource.class);
     }
 }
