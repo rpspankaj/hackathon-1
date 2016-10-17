@@ -77,13 +77,10 @@ public class GroupResource {
     }
 	
 	@POST
-	@Path("{groupId}/{userId}")
+	@Path("user")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public GroupUserMapping addUserToGroup(@PathParam("groupId") BigInteger groupId, @PathParam("userId") BigInteger userId){
-		GroupUserMapping gum =new GroupUserMapping();
-		gum.setGroupId(groupId);
-		gum.setUserId(userId);
+	public GroupUserMapping addUserToGroup(@Valid GroupUserMapping gum){
 		guMappingDao.save(gum);
 		return gum;
 	}
