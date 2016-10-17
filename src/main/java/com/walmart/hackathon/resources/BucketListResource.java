@@ -11,21 +11,28 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.walmart.hackathon.model.BucketList;
+import com.walmart.hackathon.model.HackUser;
+import com.walmart.hackathon.model.Item;
 import com.walmart.hackathon.persistence.BucketListDao;
+import com.walmart.hackathon.persistence.ItemDao;
+import com.walmart.hackathon.persistence.UserDao;
 
 @Path("/bucketLists")
 public class BucketListResource {
 	
 	
 	BucketListDao bucketListDao;
+	ItemDao itemDao;
+	UserDao  userDao;
 	
 	@Inject
-	public BucketListResource(BucketListDao bucketListDao) {
+	public BucketListResource(BucketListDao bucketListDao,ItemDao itemDao,UserDao userDao) {
 		this.bucketListDao=bucketListDao;
+		this.itemDao=itemDao;
+		this.userDao=userDao;
 	}
 	
 	@GET
@@ -37,25 +44,11 @@ public class BucketListResource {
 		return bucketLists;
 	}
 	
-	@GET
-	@Path("{groupId}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public List<BucketList> getGroupBucketLists(@PathParam("groupId") BigInteger groupId,	@QueryParam("userId") BigInteger userId){
-		List<BucketList> bucketLists = null;
-		if(null!=userId){
-			bucketLists =bucketListDao.getUserListFromBuckets(groupId,userId);
-		}
-		else{
-			bucketLists =bucketListDao.getGroupBuckets(groupId);
-		}
-		
-		return bucketLists;
-	}
-	
-
-	
-	 
+	 /**
+     * Create new USER
+     * @param user
+     * @return new user
+     */
     @POST
     @Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -63,5 +56,19 @@ public class BucketListResource {
     return bucketListDao.save(bucketList);
     }
     
-    
+    @GET
+    @Path("{groupId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<BucketList> getGroupBuckets(@PathParam("groupId")  BigInteger groupId){
+		List<BucketList> bucketLists =bucketListDao.getGroupBuckets(groupId);
+		for(BucketList bl:bucketLists){
+			Item item =itemDao.findOne(bl.getItemId());
+			HackUser hackUser =userDao.findOne(bl.getUserId());
+			bl.setItem(item);
+			bl.setHackUser(hackUser);
+		}
+		
+		return bucketLists;
+	}
 }
