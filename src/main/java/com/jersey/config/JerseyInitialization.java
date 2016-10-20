@@ -8,6 +8,7 @@ import com.walmart.hackathon.resources.BucketListResource;
 import com.walmart.hackathon.resources.GroupResource;
 import com.walmart.hackathon.resources.ItemResource;
 import com.walmart.hackathon.resources.UserResource;
+import com.walmart.hackathon.resources.IngredientResource;
 
 public class JerseyInitialization extends ResourceConfig {
     /**
@@ -23,5 +24,6 @@ public class JerseyInitialization extends ResourceConfig {
         this.register(GroupResource.class);
         this.register(BucketListResource.class);
         this.register(ItemResource.class);
+        this.register(IngredientResource.class);
     }
 }
