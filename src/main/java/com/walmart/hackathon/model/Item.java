@@ -1,15 +1,23 @@
 package com.walmart.hackathon.model;
 
 import java.math.BigInteger;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Item {
+	
+	
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	BigInteger itemId;
@@ -30,6 +38,45 @@ public class Item {
 	@Column(name="quantity")
 	Integer quantity;
 	
+	@JsonProperty
+	@Transient
+	List<Ingredient> ingredients;
+	
+	
+	/*@NotNull
+	@Column(name="ingredient_Id")
+	BigInteger ingredientId;
+	
+	public BigInteger getIngredientId() {
+		return ingredientId;
+	}
+
+	public void setIngredientId(BigInteger ingredientId) {
+		this.ingredientId = ingredientId;
+	}*/
+	
+	/*@NotNull
+	@Column(name="ingredients")*/
+	
+	public BigInteger getItemId(){
+		return itemId;
+	}
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+	public String getGtin() {
+		return gtin;
+	}
+
+	public void setGtin(String gtin) {
+		this.gtin = gtin;
+	}
+
 	public Float getPrice() {
 		return price;
 	}
@@ -46,28 +93,14 @@ public class Item {
 		this.quantity = quantity;
 	}
 
-	public String getItemName() {
-		return itemName;
+	public List<Ingredient> getIngredients() {
+		return ingredients;
 	}
 
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
+	public void setIngredients(List<Ingredient> ingredients) {
+		this.ingredients = ingredients;
 	}
 
-	public BigInteger getItemId() {
-		return itemId;
-	}
-
-	public void setItemId(BigInteger itemId) {
-		this.itemId = itemId;
-	}
-
-	public String getGtin() {
-		return gtin;
-	}
-
-	public void setGtin(String gtin) {
-		this.gtin = gtin;
-	}
+	
 	
 }
